@@ -1,0 +1,31 @@
+## Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Build/Publish
+bin/
+obj/
+publish/
+*.exe
+*.dll
+*.pdb
+
+## Rider
+.idea/
+
+# NuGet
+*.nupkg
+packages/
+
+# Visual Studio Code
+.vscode/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Ignore user-specific files
+*_??.user
