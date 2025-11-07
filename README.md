@@ -25,7 +25,6 @@ dotnet run --project Bancojido/Bancojido.csproj
 
 ## Notas
 - Ya se agregó un archivo `.gitignore` para excluir `bin/` y `obj/` y evitar subir artefactos de compilación.
-- Si necesitas que publique este repositorio como privado/público o que agregue CI, dímelo.
 
 ## Licencia
-Este repositorio no contiene una licencia explícita; si quieres, puedo añadir una (por ejemplo MIT).
+Este repositorio no contiene una licencia explícita
