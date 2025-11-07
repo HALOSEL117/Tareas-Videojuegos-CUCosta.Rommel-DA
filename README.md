@@ -1,5 +1,7 @@
 # Tareas - Videojuegos CUCosta (Rommel-DA)
 
+[![.NET Build](https://github.com/HALOSEL117/Tareas-Videojuegos-CUCosta.Rommel-DA/actions/workflows/dotnet.yml/badge.svg)](https://github.com/HALOSEL117/Tareas-Videojuegos-CUCosta.Rommel-DA/actions/workflows/dotnet.yml)
+
 Repositorio con ejercicios y proyectos de programación (C# / .NET) para la materia.
 
 ## Contenido
