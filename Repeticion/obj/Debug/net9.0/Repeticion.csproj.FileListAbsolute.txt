@@ -1,0 +1,14 @@
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\Repeticion\bin\Debug\net9.0\Repeticion.exe
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\Repeticion\bin\Debug\net9.0\Repeticion.deps.json
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\Repeticion\bin\Debug\net9.0\Repeticion.runtimeconfig.json
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\Repeticion\bin\Debug\net9.0\Repeticion.dll
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\Repeticion\bin\Debug\net9.0\Repeticion.pdb
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\Repeticion\obj\Debug\net9.0\Repeticion.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\Repeticion\obj\Debug\net9.0\Repeticion.AssemblyInfoInputs.cache
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\Repeticion\obj\Debug\net9.0\Repeticion.AssemblyInfo.cs
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\Repeticion\obj\Debug\net9.0\Repeticion.csproj.CoreCompileInputs.cache
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\Repeticion\obj\Debug\net9.0\Repeticion.dll
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\Repeticion\obj\Debug\net9.0\refint\Repeticion.dll
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\Repeticion\obj\Debug\net9.0\Repeticion.pdb
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\Repeticion\obj\Debug\net9.0\Repeticion.genruntimeconfig.cache
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\Repeticion\obj\Debug\net9.0\ref\Repeticion.dll

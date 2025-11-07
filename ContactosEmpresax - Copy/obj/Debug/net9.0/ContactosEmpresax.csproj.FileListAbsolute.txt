@@ -1,0 +1,14 @@
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\ContactosEmpresax\obj\Debug\net9.0\ContactosEmpresax.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\ContactosEmpresax\obj\Debug\net9.0\ContactosEmpresax.AssemblyInfoInputs.cache
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\ContactosEmpresax\obj\Debug\net9.0\ContactosEmpresax.AssemblyInfo.cs
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\ContactosEmpresax\obj\Debug\net9.0\ContactosEmpresax.csproj.CoreCompileInputs.cache
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\ContactosEmpresax\bin\Debug\net9.0\ContactosEmpresax.exe
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\ContactosEmpresax\bin\Debug\net9.0\ContactosEmpresax.deps.json
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\ContactosEmpresax\bin\Debug\net9.0\ContactosEmpresax.runtimeconfig.json
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\ContactosEmpresax\bin\Debug\net9.0\ContactosEmpresax.dll
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\ContactosEmpresax\bin\Debug\net9.0\ContactosEmpresax.pdb
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\ContactosEmpresax\obj\Debug\net9.0\ContactosEmpresax.dll
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\ContactosEmpresax\obj\Debug\net9.0\refint\ContactosEmpresax.dll
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\ContactosEmpresax\obj\Debug\net9.0\ContactosEmpresax.pdb
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\ContactosEmpresax\obj\Debug\net9.0\ContactosEmpresax.genruntimeconfig.cache
+C:\Users\HALOS\OneDrive\Documents\NERDSTUFF\ContactosEmpresax\obj\Debug\net9.0\ref\ContactosEmpresax.dll

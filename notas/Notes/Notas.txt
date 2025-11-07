@@ -1,0 +1,6 @@
+dotnet new console -n Miproyecto --use-program-main
+dotnet new console -n "aqui se pone el nombre de tu directorio"
+dotnet new winforms -n "mostrar colores form" 
+la linea de arriba abre el codigo
+Crea la clase completa
+CD = change directory

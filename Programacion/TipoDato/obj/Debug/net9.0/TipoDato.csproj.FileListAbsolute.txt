@@ -1,0 +1,14 @@
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\ProgramacionII\TipoDato\bin\Debug\net9.0\TipoDato.exe
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\ProgramacionII\TipoDato\bin\Debug\net9.0\TipoDato.deps.json
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\ProgramacionII\TipoDato\bin\Debug\net9.0\TipoDato.runtimeconfig.json
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\ProgramacionII\TipoDato\bin\Debug\net9.0\TipoDato.dll
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\ProgramacionII\TipoDato\bin\Debug\net9.0\TipoDato.pdb
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\ProgramacionII\TipoDato\obj\Debug\net9.0\TipoDato.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\ProgramacionII\TipoDato\obj\Debug\net9.0\TipoDato.AssemblyInfoInputs.cache
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\ProgramacionII\TipoDato\obj\Debug\net9.0\TipoDato.AssemblyInfo.cs
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\ProgramacionII\TipoDato\obj\Debug\net9.0\TipoDato.csproj.CoreCompileInputs.cache
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\ProgramacionII\TipoDato\obj\Debug\net9.0\TipoDato.dll
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\ProgramacionII\TipoDato\obj\Debug\net9.0\refint\TipoDato.dll
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\ProgramacionII\TipoDato\obj\Debug\net9.0\TipoDato.pdb
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\ProgramacionII\TipoDato\obj\Debug\net9.0\TipoDato.genruntimeconfig.cache
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\ProgramacionII\TipoDato\obj\Debug\net9.0\ref\TipoDato.dll

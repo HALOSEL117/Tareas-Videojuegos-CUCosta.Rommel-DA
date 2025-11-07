@@ -1,0 +1,64 @@
+2. Programación Orientada a Objetos (POO)
+Es un paradigma de programación que organiza el software en torno a "objetos".
+
+2.1 Paradigmas
+Un paradigma de programación es un estilo o una "manera de pensar" para escribir código.
+
+2.2 Programación (en POO)
+Se centra en modelar entidades del mundo real como objetos, cada uno con sus propios datos y comportamientos.
+
+2.3.3 Polimorfismo
+Del griego "muchas formas". Es la capacidad de objetos de diferentes clases para responder al mismo mensaje (llamada de método) de maneras distintas.
+**Ejemplo:** Un objeto `Perro` y un objeto `Gato` responden de forma diferente al método `hacerSonido()`. El perro ladra ("WOOF") y el gato maúlla ("Meow").
+
+2.3.1 Herencia
+    Es la capacidad de crear nuevas clases (clases hijas) que reutilizan, extienden y modifican el comportamiento de clases existentes (clases padre). Permite la reutilización de código y establece una jerarquía lógica.
+    **Ejemplo:** Una clase `Perro` y una clase `Gato` pueden heredar atributos comunes (como `edad`, `nombre`) y métodos comunes (como `comer()`, `dormir()`) de una clase padre `Animal`.
+2.3.2 Encapsulamiento
+    Es la agrupación de datos (atributos) y los métodos que operan sobre esos datos en una sola unidad (una clase). También implica ocultar el estado interno del objeto para protegerlo de manipulaciones indebidas, permitiendo el acceso solo a través de métodos públicos.
+    **Ejemplo:** Proteger el `saldo` de una `CuentaBancaria` para que no pueda ser puesto en un valor negativo directamente, sino solo a través de un método `retirar()` que valida la operación.
+
+2.4 Las Clases
+    Una clase es la plantilla, el molde o el plano a partir del cual se crean los objetos. Define los atributos y métodos que tendrán sus objetos.
+    
+2.4.1 Objetos
+    Un objeto es una instancia de una clase. Es la entidad concreta creada a partir del plano de la clase, con su propio estado (valores en sus atributos).
+    **Ejemplo:** Si `Perro` es la clase, un perro específico llamado "Fido" con 5 años de edad es un objeto.
+    
+
+
+
+    
+2.4.2 Datos miembros de una clase
+    Son las variables (atributos) y funciones (métodos) que pertenecen a una clase.
+    
+2.4.3 Crear o definir una clase
+    Es el acto de escribir el código que sirve como plano para los objetos. En C#, se usa la palabra clave `class`.
+
+    public class Coche 
+    {
+        public string color;
+        public void Acelerar() { /*...*/ }
+    }
+    
+2.4.4 Crear un objeto a partir de una clase
+    Es el proceso de instanciación. Se crea una nueva instancia de la clase en memoria.
+    `Coche miCoche = new Coche();`
+    
+2.4.5 Acceder a los miembros de una clase
+    Se utiliza la notación de punto (`.`) sobre el objeto para asignar valores a sus atributos o para llamar a sus métodos.
+    `miCoche.color = "Rojo";`
+    `miCoche.Acelerar();`
+    
+2.4.6 Ejemplos de la utilización de una herencia
+    La herencia permite que una clase (hija) adquiera los miembros de otra clase (padre). En C# se usa el símbolo `:`.
+
+    // La clase padre
+    public class Vehiculo {
+        public string marca;
+    }
+    
+    // La clase hija hereda 'marca' de Vehiculo
+    public class Coche : Vehiculo {
+        public int numeroDePuertas;
+    }

@@ -1,0 +1,28 @@
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\Mayor\bin\Debug\net9.0\Mayor.exe
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\Mayor\bin\Debug\net9.0\Mayor.deps.json
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\Mayor\bin\Debug\net9.0\Mayor.runtimeconfig.json
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\Mayor\bin\Debug\net9.0\Mayor.dll
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\Mayor\bin\Debug\net9.0\Mayor.pdb
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\Mayor\obj\Debug\net9.0\Mayor.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\Mayor\obj\Debug\net9.0\Mayor.AssemblyInfoInputs.cache
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\Mayor\obj\Debug\net9.0\Mayor.AssemblyInfo.cs
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\Mayor\obj\Debug\net9.0\Mayor.csproj.CoreCompileInputs.cache
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\Mayor\obj\Debug\net9.0\Mayor.dll
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\Mayor\obj\Debug\net9.0\refint\Mayor.dll
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\Mayor\obj\Debug\net9.0\Mayor.pdb
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\Mayor\obj\Debug\net9.0\Mayor.genruntimeconfig.cache
+C:\Users\HALOS\OneDrive\Documents\NERD STUFF\Mayor\obj\Debug\net9.0\ref\Mayor.dll
+C:\Users\HALOS\Documents\Visual studio code\ProgramacionII\Mayor\bin\Debug\net9.0\Mayor.exe
+C:\Users\HALOS\Documents\Visual studio code\ProgramacionII\Mayor\bin\Debug\net9.0\Mayor.deps.json
+C:\Users\HALOS\Documents\Visual studio code\ProgramacionII\Mayor\bin\Debug\net9.0\Mayor.runtimeconfig.json
+C:\Users\HALOS\Documents\Visual studio code\ProgramacionII\Mayor\bin\Debug\net9.0\Mayor.dll
+C:\Users\HALOS\Documents\Visual studio code\ProgramacionII\Mayor\bin\Debug\net9.0\Mayor.pdb
+C:\Users\HALOS\Documents\Visual studio code\ProgramacionII\Mayor\obj\Debug\net9.0\Mayor.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HALOS\Documents\Visual studio code\ProgramacionII\Mayor\obj\Debug\net9.0\Mayor.AssemblyInfoInputs.cache
+C:\Users\HALOS\Documents\Visual studio code\ProgramacionII\Mayor\obj\Debug\net9.0\Mayor.AssemblyInfo.cs
+C:\Users\HALOS\Documents\Visual studio code\ProgramacionII\Mayor\obj\Debug\net9.0\Mayor.csproj.CoreCompileInputs.cache
+C:\Users\HALOS\Documents\Visual studio code\ProgramacionII\Mayor\obj\Debug\net9.0\Mayor.dll
+C:\Users\HALOS\Documents\Visual studio code\ProgramacionII\Mayor\obj\Debug\net9.0\refint\Mayor.dll
+C:\Users\HALOS\Documents\Visual studio code\ProgramacionII\Mayor\obj\Debug\net9.0\Mayor.pdb
+C:\Users\HALOS\Documents\Visual studio code\ProgramacionII\Mayor\obj\Debug\net9.0\Mayor.genruntimeconfig.cache
+C:\Users\HALOS\Documents\Visual studio code\ProgramacionII\Mayor\obj\Debug\net9.0\ref\Mayor.dll
