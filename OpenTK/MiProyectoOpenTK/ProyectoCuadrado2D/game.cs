@@ -55,8 +55,8 @@ namespace MiProyectoOpenTK
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, _elementBufferObject);
             GL.BufferData(BufferTarget.ElementArrayBuffer, _indices.Length * sizeof(uint), _indices, BufferUsageHint.StaticDraw);
 
-            string assemblyDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-
+            string assemblyDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)!;
+            
             string vertPath = Path.Combine(assemblyDir, "shader.vert");
             string fragPath = Path.Combine(assemblyDir, "shader.frag");
             string vertCode = File.ReadAllText(vertPath);
@@ -108,6 +108,8 @@ namespace MiProyectoOpenTK
             GL.DeleteVertexArray(_vertexArrayObject);
             
             _shader.Dispose();
+            _texture.Dispose();
+
             base.OnUnload();
         }
     }

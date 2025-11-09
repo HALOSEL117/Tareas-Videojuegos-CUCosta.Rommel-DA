@@ -5,10 +5,11 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <AssemblyName>MiProyectoOpenTK</AssemblyName> 
   </PropertyGroup>
-
+  
   <ItemGroup>
-    <PackageReference Include="OpenTK" Version="4.9.4"/>
+    <PackageReference Include="OpenTK" Version="4.9.4" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,5 +20,12 @@
     <None Update="textura.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="shader.vert">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="shader.frag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
+
 </Project>
