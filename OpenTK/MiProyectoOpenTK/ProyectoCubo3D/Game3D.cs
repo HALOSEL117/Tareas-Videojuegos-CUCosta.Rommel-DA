@@ -70,10 +70,13 @@ namespace ProyectoCubo3D
         private Matrix4 _model;
         private Matrix4 _view;
         private Matrix4 _projection;
+        
+
 
         public Game3D(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings)
             : base(gameWindowSettings, nativeWindowSettings)
         {
+              this.VSync = VSyncMode.On;
         }
 
         protected override void OnLoad()
