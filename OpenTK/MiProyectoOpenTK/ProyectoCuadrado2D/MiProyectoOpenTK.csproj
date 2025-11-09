@@ -8,15 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="ProyectoCubo3D\**\*.cs" />
+    <PackageReference Include="OpenTK" Version="4.9.4"/>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OpenTK" Version="4.9.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="classlib\classlib.csproj" />
+    <ProjectReference Include="..\classlib\classlib.csproj" />
   </ItemGroup>
 
   <ItemGroup>

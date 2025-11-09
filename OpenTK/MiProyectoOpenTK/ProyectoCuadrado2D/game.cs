@@ -2,17 +2,17 @@
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using System.Diagnostics;
-
-using classlib;
+using System.IO;
+using classlib; 
 
 namespace MiProyectoOpenTK
 {
     public class Game : GameWindow
     {
+        // (Posición X, Y, Z) + (Coordenada Textura U, V)
         private readonly float[] _vertices =
         {
-             // Posición (XYZ)      // Coordenadas de Textura (UV)
+             // Posición           // Coordenadas de Textura
              0.5f,  0.5f, 0.0f,   1.0f, 1.0f, // Top Right
              0.5f, -0.5f, 0.0f,   1.0f, 0.0f, // Bottom Right
             -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, // Bottom Left
@@ -29,40 +29,20 @@ namespace MiProyectoOpenTK
         private int _vertexArrayObject;
         private int _elementBufferObject;
 
-        private Shader _shader;
-        private Texture _texture;
-
-        private const string VertexShaderSource = @"
-            #version 330 core
-            layout(location = 0) in vec3 aPosition;
-            layout(location = 1) in vec2 aTexCoord;
-            out vec2 vTexCoord;
-            void main(void)
-            {
-                vTexCoord = aTexCoord;
-                gl_Position = vec4(aPosition, 1.0);
-            }";
-
-        private const string FragmentShaderSource = @"
-            #version 330 core
-            out vec4 FragColor;
-            in vec2 vTexCoord;
-            uniform sampler2D uTexture0;
-            void main()
-            {
-                FragColor = texture(uTexture0, vTexCoord);
-            }";
-
+        private Shader _shader = null!;
+        private Texture _texture = null!;
 
         public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings)
             : base(gameWindowSettings, nativeWindowSettings)
         {
+            this.VSync = VSyncMode.On;
         }
 
         protected override void OnLoad()
         {
             base.OnLoad();
-            GL.ClearColor(0.1f, 0.1f, 0.2f, 1.0f);
+
+            GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
             _vertexBufferObject = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBufferObject);
@@ -75,26 +55,36 @@ namespace MiProyectoOpenTK
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, _elementBufferObject);
             GL.BufferData(BufferTarget.ElementArrayBuffer, _indices.Length * sizeof(uint), _indices, BufferUsageHint.StaticDraw);
 
+            string assemblyDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+            string vertPath = Path.Combine(assemblyDir, "shader.vert");
+            string fragPath = Path.Combine(assemblyDir, "shader.frag");
+            string vertCode = File.ReadAllText(vertPath);
+            string fragCode = File.ReadAllText(fragPath);
+
+            _shader = new Shader(vertCode, fragCode); 
+            _shader.Use();
+
             int stride = 5 * sizeof(float);
             GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, stride, 0);
             GL.EnableVertexAttribArray(0);
+
             GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, stride, 3 * sizeof(float));
             GL.EnableVertexAttribArray(1);
 
-            _shader = new Shader(VertexShaderSource, FragmentShaderSource);
-            _shader.Use();
-
-            _texture = new Texture("textura.jpg");
-            _shader.SetInt("uTexture0", 0);
+            _texture = new Texture(Path.Combine(assemblyDir, "textura.jpg"));
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             base.OnRenderFrame(e);
+
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
             _shader.Use();
             _texture.Use(TextureUnit.Texture0);
+            _shader.SetInt("uTexture0", 0);
+
             GL.BindVertexArray(_vertexArrayObject);
             GL.DrawElements(PrimitiveType.Triangles, _indices.Length, DrawElementsType.UnsignedInt, 0);
 
@@ -112,12 +102,12 @@ namespace MiProyectoOpenTK
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
             GL.BindVertexArray(0);
             GL.UseProgram(0);
-            GL.DeleteBuffer(_vertexBufferObject);
-            GL.DeleteVertexArray(_vertexArrayObject);
-            GL.DeleteBuffer(_elementBufferObject);
 
+            GL.DeleteBuffer(_vertexBufferObject);
+            GL.DeleteBuffer(_elementBufferObject);
+            GL.DeleteVertexArray(_vertexArrayObject);
+            
             _shader.Dispose();
-            _texture.Dispose();
             base.OnUnload();
         }
     }
