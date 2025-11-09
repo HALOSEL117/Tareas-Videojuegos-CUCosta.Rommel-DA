@@ -3,16 +3,14 @@ using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Mathematics;
 using System;
-using System.IO; // ¡Importante para Path.Combine!
-using classlib; // ¡Usando nuestra librería!
-using OpenTK.Windowing.GraphicsLibraryFramework; // Para el tiempo (GLFW)
+using System.IO;
+using classlib;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace ProyectoCubo3D
 {
-    // Heredamos de GameWindow
     public class Game3D : GameWindow
     {
-        // ... (Vértices no cambian) ...
         private readonly float[] _vertices =
         {
             // Cara Trasera (-) Z
@@ -63,7 +61,6 @@ namespace ProyectoCubo3D
             -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
             -0.5f,  0.5f,  0.5f,  0.0f, 0.0f
         };
-        // ... (Handles no cambian) ...
         private int _vertexBufferObject;
         private int _vertexArrayObject;
 
@@ -101,32 +98,22 @@ namespace ProyectoCubo3D
             GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, stride, 3 * sizeof(float));
             GL.EnableVertexAttribArray(1);
 
-            // --- INICIO DE LA CORRECCIÓN ---
-
-            // 1. Obtener la ruta de la carpeta donde se está ejecutando el .exe
-            //    (Esta es la carpeta 'bin/Debug/net9.0', donde .csproj copió los archivos)
             string exeDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-            // 2. Construir rutas completas y seguras para cada archivo
             string vertPath = Path.Combine(exeDirectory, "shader3D.vert");
             string fragPath = Path.Combine(exeDirectory, "shader3D.frag");
             string texPath = Path.Combine(exeDirectory, "textura_cubo.jpg");
 
-            // 3. Cargar y Compilar Shaders usando las rutas completas
             string vertexShaderSource = File.ReadAllText(vertPath);
             string fragmentShaderSource = File.ReadAllText(fragPath);
 
             _shader = new Shader(vertexShaderSource, fragmentShaderSource);
             _shader.Use();
 
-            // 4. Cargar Textura usando la ruta completa
             _texture = new Texture(texPath);
             _shader.SetInt("uTexture0", 0);
 
-            // --- FIN DE LA CORRECCIÓN ---
-
-
-            // --- 5. Configurar Matrices 3D (Cámara) ---
+            //Configurar Matrices 3D (Cámara)
             _model = Matrix4.Identity;
             _view = Matrix4.CreateTranslation(0.0f, 0.0f, -3.0f);
             _projection = Matrix4.CreatePerspectiveFieldOfView(
@@ -139,7 +126,6 @@ namespace ProyectoCubo3D
 
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
-            // ... (Este método no cambia) ...
             base.OnUpdateFrame(e);
             float time = (float)GLFW.GetTime();
             _model = Matrix4.CreateRotationX(MathHelper.DegreesToRadians(time * 20.0f)) *
@@ -148,7 +134,6 @@ namespace ProyectoCubo3D
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
-            // ... (Este método no cambia) ...
             base.OnRenderFrame(e);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
@@ -160,9 +145,9 @@ namespace ProyectoCubo3D
             int viewLoc = _shader.GetUniformLocation("view");
             int projLoc = _shader.GetUniformLocation("projection");
 
-            GL.UniformMatrix4(modelLoc, true, ref _model);
-            GL.UniformMatrix4(viewLoc, true, ref _view);
-            GL.UniformMatrix4(projLoc, true, ref _projection);
+            GL.UniformMatrix4(modelLoc, false, ref _model);
+            GL.UniformMatrix4(viewLoc, false, ref _view);
+            GL.UniformMatrix4(projLoc, false, ref _projection);
 
             GL.DrawArrays(PrimitiveType.Triangles, 0, 36);
 
@@ -171,7 +156,6 @@ namespace ProyectoCubo3D
 
         protected override void OnResize(ResizeEventArgs e)
         {
-            // ... (Este método no cambia) ...
             base.OnResize(e);
             GL.Viewport(0, 0, e.Width, e.Height);
             _projection = Matrix4.CreatePerspectiveFieldOfView(
@@ -184,7 +168,6 @@ namespace ProyectoCubo3D
 
         protected override void OnUnload()
         {
-            // ... (Este método no cambia) ...
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
             GL.BindVertexArray(0);
             GL.UseProgram(0);

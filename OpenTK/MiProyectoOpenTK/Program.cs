@@ -2,7 +2,6 @@
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 
-// 1. Definimos un namespace para nuestra aplicación
 namespace MiProyectoOpenTK
 {
     public static class Program
@@ -16,8 +15,6 @@ namespace MiProyectoOpenTK
                 Flags = ContextFlags.ForwardCompatible,
             };
 
-            // 2. Aquí creamos una instancia de nuestra clase Game
-            //    (que está en Game.cs y hereda de GameWindow)
             using (var game = new Game(GameWindowSettings.Default, nativeWindowSettings))
             {
                 game.Run();

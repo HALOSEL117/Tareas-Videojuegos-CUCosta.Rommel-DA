@@ -4,7 +4,6 @@ using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using System.Diagnostics;
 
-// 3. ¡Importante! Usamos el namespace de nuestra librería
 using classlib;
 
 namespace MiProyectoOpenTK
@@ -30,11 +29,9 @@ namespace MiProyectoOpenTK
         private int _vertexArrayObject;
         private int _elementBufferObject;
 
-        // 5. Usamos las clases de nuestra 'classlib'
         private Shader _shader;
         private Texture _texture;
 
-        // Shaders incrustados
         private const string VertexShaderSource = @"
             #version 330 core
             layout(location = 0) in vec3 aPosition;
@@ -84,7 +81,6 @@ namespace MiProyectoOpenTK
             GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, stride, 3 * sizeof(float));
             GL.EnableVertexAttribArray(1);
 
-            // 6. Creamos instancias de las clases de 'classlib'
             _shader = new Shader(VertexShaderSource, FragmentShaderSource);
             _shader.Use();
 

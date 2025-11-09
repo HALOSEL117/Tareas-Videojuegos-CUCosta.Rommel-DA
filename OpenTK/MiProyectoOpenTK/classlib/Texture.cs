@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System;
 namespace classlib
 {
-    // 2. Hacemos la clase 'public' para que MiProyectoOpenTK pueda verla
     public class Texture : IDisposable
     {
         public readonly int Handle;

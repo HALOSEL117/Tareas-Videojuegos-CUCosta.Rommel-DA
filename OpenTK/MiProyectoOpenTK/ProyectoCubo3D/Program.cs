@@ -11,8 +11,7 @@ namespace ProyectoCubo3D
             var nativeWindowSettings = new NativeWindowSettings()
             {
                 Size = new Vector2i(800, 600),
-                Title = "Mi Cubo 3D Giratorio (Paso de Bebé)",
-                // Esto habilita la compatibilidad con OpenGL 3.3+
+                Title = "Mi Cubo 3D Giratorio con OpenTK",
                 Flags = ContextFlags.ForwardCompatible,
             };
 
