@@ -1,5 +1,4 @@
-
-name: .NET Build
+name: .NET Build (Compilar Todos los Proyectos)
 
 on:
   push:
@@ -15,7 +14,7 @@ jobs:
       matrix:
         project-path:
           - 'Bancojido'
-          - 'Condicionalpmayor'
+          - 'Condicionalmayor'
           - 'ContactosEmpresax - Copy'
           - 'ContactosEmpresax'
           - 'InvestigacionPOO'
@@ -27,7 +26,6 @@ jobs:
           - 'Repeticion'
           - 'SueldoEmpleado'
 
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -35,11 +33,10 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '9.0.x' # Instala .NET 9
+        dotnet-version: '9.0.x'
 
     - name: Restore dependencies
-      run: dotnet restore ${{ matrix.project-path }}
+      run: dotnet restore "${{ matrix.project-path }}"
 
     - name: Build
-      # Usa la variable de la matriz para compilar CADA proyecto
-      run: dotnet build ${{ matrix.project-path }} --no-restore
+      run: dotnet build "${{ matrix.project-path }}" --no-restore
