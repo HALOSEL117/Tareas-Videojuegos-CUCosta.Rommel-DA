@@ -10,8 +10,8 @@ namespace MiProyectoOpenTK
         {
             var nativeWindowSettings = new NativeWindowSettings()
             {
-                Size = new Vector2i(800, 600),
-                Title = "Ejemplo con classlib e Herencia",
+                ClientSize = new Vector2i(800, 600),
+                Title = "Proyecto 2D (Cuadrado)",
                 Flags = ContextFlags.ForwardCompatible,
             };
 
