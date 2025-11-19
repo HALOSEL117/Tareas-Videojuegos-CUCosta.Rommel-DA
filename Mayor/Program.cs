@@ -11,19 +11,19 @@
             Console.WriteLine("Escribe un Numero");
             int z = Convert.ToInt32(Console.ReadLine());
 
-            int mayor, medio, menor;
+            int mayor, media, menor;
 
             if (x >= y && x >= z)
             {
                 mayor = x;
                 if (y >= z)
                 {
-                    medio = y;
+                    media = y;
                     menor = z;
                 }
                 else
                 {
-                    medio = z;
+                    media = z;
                     menor = y;
                 }
             }
@@ -32,12 +32,12 @@
                 mayor = y;
                 if (x >= z)
                 {
-                    medio = x;
+                    media = x;
                     menor = z;
                 }
                 else
                 {
-                    medio = z;
+                    media = z;
                     menor = x;
                 }
             }
@@ -46,17 +46,17 @@
                 mayor = z;
                 if (x >= y)
                 {
-                    medio = x;
+                    media = x;
                     menor = y;
                 }
                 else
                 {
-                    medio = y;
+                    media = y;
                     menor = x;
                 }
             }
             Console.WriteLine($"Mayor: {mayor}");
-            Console.WriteLine($"Medio: {medio}");
+            Console.WriteLine($"Media: {media}");
             Console.WriteLine($"Menor: {menor}");
         }
     }
