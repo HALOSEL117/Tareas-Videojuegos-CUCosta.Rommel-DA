@@ -8,49 +8,124 @@ namespace Algoritmos
     {
         // Objeto para bloquear la consola y evitar que los textos se mezclen al usar threads
         static readonly object consolaLock = new object();
+        // Indica si el programa corre en modo no interactivo (benchmarks automatizados)
+        static bool headless = false;
+        // Parámetros para salida estructurada
+        static string outFilePath = null;
+        static int runId = 0;
+        static object fileLock = new object();
+        static int currentSize = 0;
+        static string currentMode = "";
+        static int repeats = 1;
 
         static void Main(string[] args)
         {
-            // CONFIGURACIÓN
-            const int CANTIDAD_NUMEROS = 5000; // Puedes ajustar este valor para probar con más o menos números
-            const int MAX_VALOR = 999; // Máximo 4 dígitos en el modo cruel para evitar "StackOverflow"
-            //Para probar el "modo cruel" de listas invertidas, descomenta las siguientes líneas: 20,23 y comenta la linea 26.
-            //para volver al modo aleatorio descomenta la linea 25 y comenta las líneas 20 y 23.
-            //Generar lista invertida (peor caso para algunos algoritmos)
-            //Console.WriteLine("=== MODO CRUEL: LISTA INVERTIDA ===");
-            
-            //EN LUGAR DE ALEATORIOS, USAMOS LA LISTA INVERTIDA
-            //int[] dataOriginal = GenerarListaInvertida(CANTIDAD_NUMEROS);
+            // CONFIGURACIÓN (valores por defecto, pueden sobrescribirse por argumentos)
+            int CANTIDAD_NUMEROS = 10000; // Puedes ajustar este valor o pasar como primer argumento
+            int MAX_VALOR = 99999; // Rango máximo para números aleatorios
+            string modo = "aleatorio"; // "aleatorio" o "cruel"
 
-            // 1. Generar lista aleatoria
-            int[] dataOriginal = GenerarNumerosAleatorios(CANTIDAD_NUMEROS, MAX_VALOR);
-            
-            // 2. Mostrar la "Ventana" con los datos desordenados
-            MostrarVentana(dataOriginal);
+            // Parseo robusto de argumentos (posicionales y flags)
+            // Uso: dotnet run --project .\Algoritmos.csproj -- <cantidad> <modo> [<maxValor>] [--run N] [--out <path>] [--headless]
+            for (int i = 0; i < args.Length; i++)
+            {
+                var a = args[i];
+                if (string.Equals(a, "--headless", StringComparison.OrdinalIgnoreCase) || string.Equals(a, "-h", StringComparison.OrdinalIgnoreCase))
+                {
+                    headless = true;
+                    continue;
+                }
+                if (string.Equals(a, "--out", StringComparison.OrdinalIgnoreCase) && i + 1 < args.Length)
+                {
+                    outFilePath = args[++i];
+                    continue;
+                }
+                if (string.Equals(a, "--repeat", StringComparison.OrdinalIgnoreCase) && i + 1 < args.Length && int.TryParse(args[++i], out int rpt))
+                {
+                    repeats = Math.Max(1, rpt);
+                    continue;
+                }
+                if (string.Equals(a, "--run", StringComparison.OrdinalIgnoreCase) && i + 1 < args.Length && int.TryParse(args[++i], out int rid))
+                {
+                    runId = rid;
+                    continue;
+                }
+                if (string.Equals(a, "--max", StringComparison.OrdinalIgnoreCase) && i + 1 < args.Length && int.TryParse(args[++i], out int pmax))
+                {
+                    MAX_VALOR = pmax;
+                    continue;
+                }
+                // Posicionales: si no empiezan por '-'
+                if (!a.StartsWith("-"))
+                {
+                    if (currentSize == 0 && int.TryParse(a, out int parsedCantidad))
+                    {
+                        CANTIDAD_NUMEROS = parsedCantidad;
+                        currentSize = CANTIDAD_NUMEROS;
+                        continue;
+                    }
+                    if (string.IsNullOrEmpty(modo))
+                    {
+                        var a1 = a.ToLower();
+                        if (a1 == "cruel" || a1 == "invertida" || a1 == "inverted") modo = "cruel";
+                        else modo = a1;
+                        currentMode = modo;
+                        continue;
+                    }
+                    if (int.TryParse(a, out int maybeMax))
+                    {
+                        MAX_VALOR = maybeMax;
+                        continue;
+                    }
+                }
+            }
 
-            Console.WriteLine("\nPresiona [ENTER] para iniciar los Threads de ordenamiento...");
-            Console.ReadLine();
+            // Asegurar valores en variables estáticas para salida CSV
+            currentSize = currentSize == 0 ? CANTIDAD_NUMEROS : currentSize;
+            currentMode = string.IsNullOrEmpty(currentMode) ? modo : currentMode;
 
-            Console.Clear();
+            // Generación de datos (modo según argumentos)
+            if (modo == "cruel") Console.WriteLine("=== MODO CRUEL: LISTA INVERTIDA ===");
+            int[] baseData = (modo == "cruel") ? GenerarListaInvertida(CANTIDAD_NUMEROS) : GenerarNumerosAleatorios(CANTIDAD_NUMEROS, MAX_VALOR);
+
+            // 2. Mostrar la "Ventana" con los datos desordenados (si no estamos en modo headless)
+            if (!headless)
+            {
+                MostrarVentana(baseData);
+                Console.WriteLine("\nPresiona [ENTER] para iniciar los Threads de ordenamiento...");
+                Console.ReadLine();
+                Console.Clear();
+            }
+
             Console.WriteLine("=== INICIANDO PROCESAMIENTO EN PARALELO ===\n");
 
-            // Crear copias independientes para cada Thread (para evitar conflictos de memoria)
-            int[] arrBubble = (int[])dataOriginal.Clone();
-            int[] arrMerge = (int[])dataOriginal.Clone();
-            int[] arrQuick = (int[])dataOriginal.Clone();
+            // Ejecutar N repeticiones (si repeats>1). Cada repetición genera copias independientes de la misma entrada base.
+            for (int rep = 1; rep <= repeats; rep++)
+            {
+                runId = rep;
+                // Crear copias independientes para cada Thread (para evitar conflictos de memoria)
+                int[] arrBubble = (int[])baseData.Clone();
+                int[] arrMerge = (int[])baseData.Clone();
+                int[] arrQuick = (int[])baseData.Clone();
 
-            // 3. Ejecutar Algoritmos en Threads (Tasks) paralelos
-            var t1 = Task.Run(() => EjecutarBubble(arrBubble));
-            var t2 = Task.Run(() => EjecutarMerge(arrMerge));
-            var t3 = Task.Run(() => EjecutarQuick(arrQuick));
+                // 3. Ejecutar Algoritmos en Threads (Tasks) paralelos
+                var t1 = Task.Run(() => EjecutarBubble(arrBubble));
+                var t2 = Task.Run(() => EjecutarMerge(arrMerge));
+                var t3 = Task.Run(() => EjecutarQuick(arrQuick));
 
-            // Esperar a que todos terminen
-            Task.WaitAll(t1, t2, t3);
+                // Esperar a que todos terminen
+                Task.WaitAll(t1, t2, t3);
+
+                Console.WriteLine($"Repetición {rep} de {repeats} finalizada.\n");
+            }
 
             Console.WriteLine("\n============================================");
             Console.WriteLine("Todos los algoritmos han finalizado.");
             Console.WriteLine("============================================");
-            Console.ReadKey();
+            if (!headless)
+            {
+                Console.ReadKey();
+            }
         }
 
         // --- MÉTODOS DE EJECUCIÓN Y MEDICIÓN ---
@@ -60,7 +135,7 @@ namespace Algoritmos
             Stopwatch sw = Stopwatch.StartNew();
             BubbleSort(arr);
             sw.Stop();
-            ReportarResultado("Bubble Sort", sw.ElapsedTicks, arr);
+            ReportarResultado("Bubble Sort", sw.ElapsedTicks, sw.Elapsed.TotalMilliseconds, arr);
         }
 
         static void EjecutarMerge(int[] arr)
@@ -68,7 +143,7 @@ namespace Algoritmos
             Stopwatch sw = Stopwatch.StartNew();
             MergeSort(arr, 0, arr.Length - 1);
             sw.Stop();
-            ReportarResultado("Merge Sort", sw.ElapsedTicks, arr);
+            ReportarResultado("Merge Sort", sw.ElapsedTicks, sw.Elapsed.TotalMilliseconds, arr);
         }
 
         static void EjecutarQuick(int[] arr)
@@ -76,20 +151,39 @@ namespace Algoritmos
             Stopwatch sw = Stopwatch.StartNew();
             QuickSort(arr, 0, arr.Length - 1);
             sw.Stop();
-            ReportarResultado("Quick Sort", sw.ElapsedTicks, arr);
+            ReportarResultado("Quick Sort", sw.ElapsedTicks, sw.Elapsed.TotalMilliseconds, arr);
         }
 
         // Método thread-safe para escribir en consola
-        static void ReportarResultado(string algoritmo, long ticks, int[] arrOrdenado)
+        static void ReportarResultado(string algoritmo, long ticks, double ms, int[] arrOrdenado)
         {
             lock (consolaLock)
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine($"--> {algoritmo} terminó.");
                 Console.ResetColor();
-                Console.WriteLine($"    Tiempo: {ticks} ticks de reloj.");
+                Console.WriteLine($"    Tiempo: {ticks} ticks de reloj ({ms:F2} ms).");
                 Console.WriteLine($"    Muestra (primeros 10): {string.Join(", ", arrOrdenado[..Math.Min(10, arrOrdenado.Length)])}...");
                 Console.WriteLine("------------------------------------------------");
+            }
+
+            // Si se indicó salida estructurada, escribir fila CSV (thread-safe)
+            if (!string.IsNullOrEmpty(outFilePath))
+            {
+                lock (fileLock)
+                {
+                    bool exists = System.IO.File.Exists(outFilePath);
+                    if (!exists)
+                    {
+                        // Escribir encabezado con BOM UTF8
+                        var utf8Bom = new System.Text.UTF8Encoding(true);
+                        var header = "Size,Mode,Run,Algorithm,Ticks,Ms\r\n";
+                        System.IO.File.WriteAllText(outFilePath, header, utf8Bom);
+                    }
+                    // Formatear línea CSV
+                    string line = string.Format("{0},{1},{2},{3},{4},{5}\r\n", currentSize, currentMode, runId, algoritmo, ticks, ms.ToString("F2", System.Globalization.CultureInfo.InvariantCulture));
+                    System.IO.File.AppendAllText(outFilePath, line, System.Text.Encoding.UTF8);
+                }
             }
         }
 
@@ -121,7 +215,7 @@ namespace Algoritmos
             for (int i = 0; i < datos.Length; i++)
             {
                 // Formato: 005, 100, 023...
-                contenido += $"{datos[i]:000} "; 
+                contenido += $"{datos[i]:000} ";
                 if ((i + 1) % 14 == 0) contenido += "\n  "; // Salto de línea cada 14 números
             }
 
@@ -130,7 +224,7 @@ namespace Algoritmos
             {
                 Console.WriteLine($"║  {linea.PadRight(68)}║");
             }
-            
+
             Console.WriteLine($"╚{borde}╝");
             Console.ResetColor();
         }
@@ -220,14 +314,14 @@ namespace Algoritmos
         // --- GENERADOR "CRUEL" (Lista Invertida) ---
         static int[] GenerarListaInvertida(int cantidad)
         {
-        int[] arr = new int[cantidad];
-        // Empezamos con un número alto y vamos bajando
-        int valor = cantidad; 
-        for (int i = 0; i < cantidad; i++)
-        {
-            arr[i] = valor--; 
-        }
-        return arr;
+            int[] arr = new int[cantidad];
+            // Empezamos con un número alto y vamos bajando
+            int valor = cantidad;
+            for (int i = 0; i < cantidad; i++)
+            {
+                arr[i] = valor--;
+            }
+            return arr;
         }
     }
 }
