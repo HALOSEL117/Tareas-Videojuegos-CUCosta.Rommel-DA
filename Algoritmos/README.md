@@ -179,3 +179,12 @@ Si quieres, puedo también:
 - traducir el README al inglés,
 - ampliar el script para producir gráficos (CSV -> PNG),
 - o añadir más algoritmos y métricas (uso de memoria, recursión máxima).
+
+---
+
+**Registro de la versión / commit**
+
+- Última actualización: `2025-11-24 16:32:05` (commit `34f7454`)
+
+_Nota:_ este hash corresponde al commit que documenta la adición de opciones de ejecución
+( `--sequential` / `--parallel` ), mejoras en la generación de CSV y documentación.
