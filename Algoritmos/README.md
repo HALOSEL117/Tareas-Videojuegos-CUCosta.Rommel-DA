@@ -184,7 +184,16 @@ Si quieres, puedo también:
 
 **Registro de la versión / commit**
 
-- Última actualización: `2025-11-24 16:32:05` (commit `34f7454`)
+- Última actualización: `2025-11-24 16:41:00` (commit `07baac0`)
+- Tag: `v1.0-20251124_1641`
 
-_Nota:_ este hash corresponde al commit que documenta la adición de opciones de ejecución
-( `--sequential` / `--parallel` ), mejoras en la generación de CSV y documentación.
+_Nota:_ Este tag corresponde a la versión que incluye:
+
+- Refactorización completa a clases (`ISorter`, `SorterBase`, `ResultMetrics`, `CsvWriter`, `BenchmarkRunner`).
+- Nuevas métricas: memoria administrada (antes/después/delta), memoria privada (antes/después/delta), profundidad máxima de recursión.
+- Soporte para ejecución secuencial (`--sequential`) y paralela (`--parallel`).
+- Escritura directa de resultados en CSV con encabezado UTF-8 BOM y esquema completo.
+- Scripts automatizados: `run_benchmarks.ps1`, `summarize_benchmarks.ps1`, `scripts/clean_archive.ps1`.
+- Documentación ampliada y ejemplos de uso.
+
+_Revisa el historial de commits y tags para trazabilidad completa._
