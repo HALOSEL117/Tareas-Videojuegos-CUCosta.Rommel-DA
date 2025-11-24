@@ -16,7 +16,6 @@ El programa incluye una métrica de tiempo real llamada "Ticks de Reloj" (Clock 
 
 ## Estructura
 
-
 ```
 Algoritmos/
 ├─ Algoritmos.csproj
@@ -47,38 +46,75 @@ Algoritmos/
 
 ## Instrucciones de Uso
 
-El código viene configurado por defecto en **Modo Aleatorio**. Ahora `Program.cs` acepta argumentos opcionales para correr benchmarks desde línea de comandos:
 
-Uso básico (PowerShell):
+El código está listo para ejecutarse en modo interactivo o automatizado. Puedes usarlo desde la consola, scripts PowerShell, o integrarlo en pipelines de pruebas.
 
-```
+### Ejecución manual (PowerShell)
+
+```powershell
 cd "c:\Users\HALOSEL117\Documents\Repositorios Github\Tareas-Videojuegos-CUCosta.Rommel-DA\Algoritmos"
 dotnet build .\Algoritmos.csproj
-dotnet run --project .\Algoritmos.csproj -- <cantidad> <modo> <maxValor>
+dotnet run --project .\Algoritmos.csproj -- <cantidad> <modo> <maxValor> [opciones]
 ```
 
-Parámetros:
+**Parámetros principales:**
 
 - `<cantidad>`: Número de elementos a generar (ej: `10000`).
 - `<modo>`: `aleatorio` (por defecto) o `cruel` (lista invertida).
 - `<maxValor>`: (opcional) máximo valor para números aleatorios.
 
-Nuevas opciones útiles para automatización:
+**Opciones avanzadas:**
 
-- `--headless`: Ejecuta sin interacción ni dibujo en consola (útil para scripts automatizados).
-- `--run <N>`: Identificador de la ejecución (enteros). Útil cuando se repite la misma configuración varias veces.
-- `--out <path>`: Archivo CSV donde el programa escribirá resultados estructurados (`Size,Mode,Run,Algorithm,Ticks,Ms`). Si el archivo no existe, el programa lo creará con encabezado UTF-8 BOM y añadirá filas.
-- `--headless`: Ejecuta sin interacción ni dibujo en consola (útil para scripts automatizados).
-- `--run <N>`: Identificador de la ejecución (enteros). Útil cuando se repite la misma configuración varias veces (externamente).
-- `--repeat <N>`: Ejecuta internamente N repeticiones (el programa ejecuta las 3 rutinas N veces y produce filas `Run=1..N`).
-- `--out <path>`: Archivo CSV donde el programa escribirá resultados estructurados (`Size,Mode,Run,Algorithm,Ticks,Ms`). Si el archivo no existe, el programa lo creará con encabezado UTF-8 BOM y añadirá filas.
+- `--headless`: Ejecuta sin interacción ni dibujo en consola (ideal para scripts y benchmarks).
+- `--run <N>`: Identificador de la ejecución (útil para distinguir repeticiones externas).
+- `--repeat <N>`: Ejecuta internamente N repeticiones (produce filas `Run=1..N`).
+- `--out <path>`: Archivo CSV donde se guardan los resultados. Si no existe, se crea con encabezado UTF-8 BOM.
+- `--sequential`: Fuerza ejecución secuencial (uno por uno, útil para medición precisa de memoria).
+- `--parallel`: Ejecuta en paralelo (por defecto, más rápido pero las métricas de memoria pueden solaparse).
 
-Adicionalmente, a partir de esta versión el programa soporta opciones para controlar el modo de ejecución (paralelo o secuencial) y captura métricas de memoria y profundidad de recursión:
+**Ejemplo básico:**
 
-- `--sequential`: Ejecuta los algoritmos uno a uno (secuencial). Recomendado cuando deseas mediciones de memoria privada (`PrivateDelta`) no solapadas.
-- `--parallel`: Ejecuta los algoritmos en paralelo (por defecto) usando `Task.Run` (mayor concurrencia, pero las medidas de memoria privada pueden solaparse).
+```powershell
+dotnet run --project .\Algoritmos.csproj -- 10000 aleatorio --headless --out benchmarks.csv
+```
 
-Métricas CSV completas: El CSV generado ahora contiene las siguientes columnas:
+**Ejemplo con repeticiones y modo cruel:**
+
+```powershell
+dotnet run --project .\Algoritmos.csproj -- 5000 cruel --repeat 5 --headless --out benchmarks.csv
+```
+
+**Ejemplo secuencial para análisis de memoria:**
+
+```powershell
+dotnet run --project .\Algoritmos.csproj -- 1000 aleatorio --repeat 3 --headless --out benchmarks.csv --sequential
+```
+
+### Ejecución automatizada con scripts
+
+Para ejecutar múltiples combinaciones y archivar resultados automáticamente, usa los scripts incluidos:
+
+- `run_benchmarks.ps1`: Ejecuta el programa en varios tamaños, modos y repeticiones, guarda resultados en CSV y archiva históricos.
+- `summarize_benchmarks.ps1`: Resume los resultados y exporta un CSV con promedios y desviaciones estándar.
+- `scripts/clean_archive.ps1`: Limpia la carpeta de archivos archivados.
+
+**Ejemplo de uso del script principal:**
+
+```powershell
+cd .\Algoritmos
+./run_benchmarks.ps1 -Sizes 1000 5000 10000 -Modes aleatorio cruel -Repeats 3 -OutFile benchmarks.csv
+```
+
+**Ejemplo para limpiar archivos archivados:**
+
+```powershell
+cd .\Algoritmos
+./scripts/clean_archive.ps1
+```
+
+**Métricas CSV completas:**
+
+El CSV generado contiene las siguientes columnas:
 
 Size,Mode,Run,Algorithm,Ticks,Ms,ManagedBefore,ManagedAfter,ManagedDelta,PrivateBefore,PrivateAfter,PrivateDelta,MaxRecursionDepth
 
