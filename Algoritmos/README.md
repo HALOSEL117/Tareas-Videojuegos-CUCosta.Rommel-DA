@@ -136,7 +136,6 @@ dotnet run --project .\Algoritmos.csproj -- 1000 aleatorio --run 1 --headless --
 
 ### Modos: Normal vs Cruel
 
-
 #### 1. Modo Normal (Aleatorio)
 
 - **Configuración:** Usar `aleatorio` como argumento (o por defecto).
@@ -159,11 +158,18 @@ dotnet run --project .\Algoritmos.csproj -- 1000 aleatorio --run 1 --headless --
 
 ## Tabla de Complejidad (Big-O)
 
-| Algoritmo       | Mejor Caso | Promedio   | Peor Caso  | Observación                                                   |
-| :-------------- | :--------- | :--------- | :--------- | :------------------------------------------------------------ |
-| **Bubble Sort** | O(n)       | O(n^2)     | O(n^2)     | Solo fines educativos.                                        |
-| **Merge Sort**  | O(n log n) | O(n log n) | O(n log n) | Estable, usa memoria auxiliar.                                |
-| **Quick Sort**  | O(n log n) | O(n log n) | O(n^2)     | Rápido en promedio; peor con pivote fijo en listas ordenadas. |
+
+| Algoritmo       | Mejor Caso | Promedio   | Peor Caso  | Memoria           | Recursión Máxima      | Observación                                                   |
+| :-------------- | :--------- | :--------- | :--------- | :----------------- | :--------------------- | :------------------------------------------------------------ |
+| **Bubble Sort** | O(n)       | O(n^2)     | O(n^2)     | O(1)               | 0 (iterativo)          | Solo fines educativos.                                        |
+| **Merge Sort**  | O(n log n) | O(n log n) | O(n log n) | O(n)               | log₂(n)                | Estable, usa memoria auxiliar y recursión.                    |
+| **Quick Sort**  | O(n log n) | O(n log n) | O(n^2)     | O(log n)           | n (peor caso)          | Rápido en promedio; peor con pivote fijo en listas ordenadas. |
+
+**Cómo se mide la memoria y recursión máxima en este proyecto:**
+
+- **Memoria administrada (Managed):** Se mide con `GC.GetTotalMemory(false)` antes y después de cada algoritmo. El delta (`ManagedDelta`) refleja el cambio en memoria .NET gestionada.
+- **Memoria privada (Private):** Se mide con `Process.PrivateMemorySize64` antes y después de cada algoritmo. El delta (`PrivateDelta`) refleja el cambio en memoria total usada por el proceso (puede solaparse en modo paralelo).
+- **Recursión máxima:** Se mide en los algoritmos recursivos (Merge y Quick) contando la profundidad máxima alcanzada durante la ejecución (`MaxRecursionDepth`). Bubble Sort es iterativo, por lo que su valor es 0.
 
 ## Benchmarks automáticos
 
