@@ -16,10 +16,33 @@ El programa incluye una métrica de tiempo real llamada "Ticks de Reloj" (Clock 
 
 ## Estructura
 
+
 ```
 Algoritmos/
-  ├─ Algoritmos.csproj
-  └─ Program.cs
+├─ Algoritmos.csproj
+├─ Program.cs
+├─ README.md
+├─ run_benchmarks.ps1
+├─ summarize_benchmarks.ps1
+├─ benchmarks/
+│   ├─ bench_test_par.csv
+│   ├─ bench_test_seq.csv
+│   └─ archive/
+├─ Classes/
+│   ├─ IO/
+│   │   └─ CsvWriter.cs
+│   ├─ Models/
+│   │   └─ ResultMetrics.cs
+│   ├─ Runner/
+│   │   └─ BenchmarkRunner.cs
+│   └─ Sorting/
+│       ├─ BubbleSorter.cs
+│       ├─ ISorter.cs
+│       ├─ MergeSorter.cs
+│       ├─ QuickSorter.cs
+│       └─ SorterBase.cs
+├─ scripts/
+│   └─ clean_archive.ps1
 ```
 
 ## Instrucciones de Uso
