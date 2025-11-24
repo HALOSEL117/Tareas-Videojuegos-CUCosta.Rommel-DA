@@ -50,6 +50,17 @@ Nuevas opciones útiles para automatización:
 - `--repeat <N>`: Ejecuta internamente N repeticiones (el programa ejecuta las 3 rutinas N veces y produce filas `Run=1..N`).
 - `--out <path>`: Archivo CSV donde el programa escribirá resultados estructurados (`Size,Mode,Run,Algorithm,Ticks,Ms`). Si el archivo no existe, el programa lo creará con encabezado UTF-8 BOM y añadirá filas.
 
+Adicionalmente, a partir de esta versión el programa soporta opciones para controlar el modo de ejecución (paralelo o secuencial) y captura métricas de memoria y profundidad de recursión:
+
+- `--sequential`: Ejecuta los algoritmos uno a uno (secuencial). Recomendado cuando deseas mediciones de memoria privada (`PrivateDelta`) no solapadas.
+- `--parallel`: Ejecuta los algoritmos en paralelo (por defecto) usando `Task.Run` (mayor concurrencia, pero las medidas de memoria privada pueden solaparse).
+
+Métricas CSV completas: El CSV generado ahora contiene las siguientes columnas:
+
+Size,Mode,Run,Algorithm,Ticks,Ms,ManagedBefore,ManagedAfter,ManagedDelta,PrivateBefore,PrivateAfter,PrivateDelta,MaxRecursionDepth
+
+Nota sobre memoria privada: `PrivateBefore/PrivateAfter` usan `Process.PrivateMemorySize64` del proceso actual. Si se ejecutan los algoritmos en paralelo estas lecturas pueden reflejar la memoria total del proceso y no la memoria exclusiva de cada algoritmo; por eso `--sequential` es la opción recomendada para análisis de memoria.
+
 Ejemplo:
 
 ```
@@ -94,6 +105,12 @@ Uso del script (PowerShell):
 ```
 cd .\Algoritmos
 .\run_benchmarks.ps1 -Sizes 1000 5000 10000 -Modes aleatorio cruel -Repeats 3 -OutFile benchmarks.csv
+
+Si quieres que cada ejecución del script use modo secuencial (no paralelo), llama al programa directamente con `--sequential` o modifica `run_benchmarks.ps1` para pasar `--sequential` a `dotnet run`.
+
+Ejemplo (ejecución secuencial manual):
+
+dotnet run --project .\Algoritmos.csproj -- 1000 aleatorio --repeat 3 --headless --out '.\benchmarks\benchmarks.csv' --sequential
 ```
 
 El script compila el proyecto (si es necesario), ejecuta las pruebas y genera un CSV con columnas: `Size,Mode,Run,Algorithm,Ticks,Ms`.
@@ -123,6 +140,16 @@ Move-Item .\benchmarks*.csv .\benchmarks\archive\
 ```
 Remove-Item .\benchmarks*.csv -Force
 .\run_benchmarks.ps1 -Sizes 1000 5000 10000 -Modes aleatorio cruel -Repeats 3 -OutFile benchmarks.csv
+
+También hay un script auxiliar para limpiar la carpeta de archivos archivados si quieres vaciar `benchmarks/archive`:
+
+PowerShell:
+```
+
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\clean_archive.ps1
+
+```
+
 ```
 
 Nota: `run_benchmarks.ps1` puede recibir el parámetro `-OutFile` para indicar el archivo de salida; si el archivo existe se añadirán filas. Para evitar problemas de codificación con herramientas Windows, el script crea el CSV con encabezado en UTF‑8 + BOM.
