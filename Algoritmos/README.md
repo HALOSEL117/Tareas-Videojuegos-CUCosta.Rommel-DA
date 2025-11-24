@@ -171,6 +171,18 @@ dotnet run --project .\Algoritmos.csproj -- 1000 aleatorio --run 1 --headless --
 - **Memoria privada (Private):** Se mide con `Process.PrivateMemorySize64` antes y después de cada algoritmo. El delta (`PrivateDelta`) refleja el cambio en memoria total usada por el proceso (puede solaparse en modo paralelo).
 - **Recursión máxima:** Se mide en los algoritmos recursivos (Merge y Quick) contando la profundidad máxima alcanzada durante la ejecución (`MaxRecursionDepth`). Bubble Sort es iterativo, por lo que su valor es 0.
 
+
+---
+**Ejemplo cotidiano para entender la medición de memoria:**
+
+Imagina que tienes una caja donde guardas manzanas (memoria administrada) y otra caja donde guardas todo lo que usas en la cocina (memoria privada). Antes de ordenar las manzanas, cuentas cuántas hay en la caja. Después de terminar, vuelves a contar. La diferencia te dice cuántas manzanas usaste o moviste durante el proceso.
+
+En el caso de la memoria privada, es como pesar toda la cocina antes y después de cocinar: si usaste más ollas, cuchillos o ingredientes, el peso total cambia. Si cocinas varias recetas al mismo tiempo (modo paralelo), el peso puede mezclarse y no saber exactamente cuánto usó cada receta.
+
+La recursión máxima sería como saber cuántas veces tuviste que abrir cajas dentro de cajas para encontrar la manzana más pequeña. Si solo usas una caja (iterativo), el número es cero. Si tienes que abrir muchas cajas dentro de otras (recursivo), ese número crece.
+
+Así, el programa mide la memoria y la recursión como si estuviera contando y pesando objetos cotidianos antes y después de ordenar, para saber cuánto realmente se usó en cada algoritmo.
+
 ## Benchmarks automáticos
 
 He añadido un script PowerShell `run_benchmarks.ps1` (en la carpeta `Algoritmos`) que ejecuta el programa para varias combinaciones de tamaños y modos, repite cada prueba varias veces y guarda los resultados en un archivo CSV (`benchmarks.csv`).
