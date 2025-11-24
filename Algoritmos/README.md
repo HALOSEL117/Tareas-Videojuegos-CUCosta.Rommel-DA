@@ -46,7 +46,6 @@ Algoritmos/
 
 ## Instrucciones de Uso
 
-
 El código está listo para ejecutarse en modo interactivo o automatizado. Puedes usarlo desde la consola, scripts PowerShell, o integrarlo en pipelines de pruebas.
 
 ### Ejecución manual (PowerShell)
@@ -137,15 +136,26 @@ dotnet run --project .\Algoritmos.csproj -- 1000 aleatorio --run 1 --headless --
 
 ### Modos: Normal vs Cruel
 
-1. Modo Normal (Aleatorio)
 
-- Configuración: `GenerarNumerosAleatorios` (por defecto).
-- Resultado esperado: Quick Sort suele ser el más rápido; Merge sigue, y Bubble es muy lento en listas grandes.
+#### 1. Modo Normal (Aleatorio)
 
-2. Modo Cruel (Lista Invertida)
+- **Configuración:** Usar `aleatorio` como argumento (o por defecto).
+- **Comportamiento:** Genera una lista de números aleatorios. Simula el caso promedio para los algoritmos.
+- **Resultados típicos:**
+  - Quick Sort es el más rápido en la mayoría de los casos.
+  - Merge Sort es consistente y cercano a Quick Sort.
+  - Bubble Sort es muy lento para listas grandes, pero útil para comparar en listas pequeñas.
 
-- Configuración: `cruel` como segundo argumento o pasar `cruel` en el script.
-- Qué sucede: Quick Sort (con pivote fijo) puede degradar su rendimiento a O(n^2). Merge Sort se mantiene estable.
+#### 2. Modo Cruel (Lista Invertida)
+
+- **Configuración:** Usar `cruel` como argumento (ejemplo: `dotnet run -- 10000 cruel`).
+- **Comportamiento:** Genera una lista ordenada de mayor a menor (peor caso para algunos algoritmos).
+- **Resultados típicos:**
+  - Quick Sort (con pivote fijo) puede degradar su rendimiento a O(n²), mostrando tiempos mucho mayores.
+  - Merge Sort mantiene su rendimiento estable (O(n log n)), ideal para comparar robustez.
+  - Bubble Sort sigue siendo el más lento, pero el impacto es menos notorio en listas pequeñas.
+
+**Recomendación:** Usa ambos modos para comparar robustez y eficiencia. El modo "cruel" es útil para evidenciar debilidades en algoritmos con pivote fijo y para validar la estabilidad de Merge Sort.
 
 ## Tabla de Complejidad (Big-O)
 
