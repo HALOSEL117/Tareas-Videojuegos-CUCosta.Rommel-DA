@@ -123,15 +123,11 @@ Ejemplo:
 
 ```
 dotnet run --project .\Algoritmos.csproj -- 10000 cruel 99999
-
+```
 Ejemplo para salida estructurada (escribir en `benchmarks.csv`):
 
 ```
-
 dotnet run --project .\Algoritmos.csproj -- 1000 aleatorio --run 1 --headless --out benchmarks.csv
-
-```
-
 ```
 
 ### Modos: Normal vs Cruel
@@ -158,12 +154,11 @@ dotnet run --project .\Algoritmos.csproj -- 1000 aleatorio --run 1 --headless --
 
 ## Tabla de Complejidad (Big-O)
 
-
-| Algoritmo       | Mejor Caso | Promedio   | Peor Caso  | Memoria           | Recursión Máxima      | Observación                                                   |
-| :-------------- | :--------- | :--------- | :--------- | :----------------- | :--------------------- | :------------------------------------------------------------ |
-| **Bubble Sort** | O(n)       | O(n^2)     | O(n^2)     | O(1)               | 0 (iterativo)          | Solo fines educativos.                                        |
-| **Merge Sort**  | O(n log n) | O(n log n) | O(n log n) | O(n)               | log₂(n)                | Estable, usa memoria auxiliar y recursión.                    |
-| **Quick Sort**  | O(n log n) | O(n log n) | O(n^2)     | O(log n)           | n (peor caso)          | Rápido en promedio; peor con pivote fijo en listas ordenadas. |
+| Algoritmo       | Mejor Caso | Promedio   | Peor Caso  | Memoria  | Recursión Máxima | Observación                                                   |
+| :-------------- | :--------- | :--------- | :--------- | :------- | :--------------- | :------------------------------------------------------------ |
+| **Bubble Sort** | O(n)       | O(n^2)     | O(n^2)     | O(1)     | 0 (iterativo)    | Solo fines educativos.                                        |
+| **Merge Sort**  | O(n log n) | O(n log n) | O(n log n) | O(n)     | log₂(n)          | Estable, usa memoria auxiliar y recursión.                    |
+| **Quick Sort**  | O(n log n) | O(n log n) | O(n^2)     | O(log n) | n (peor caso)    | Rápido en promedio; peor con pivote fijo en listas ordenadas. |
 
 **Cómo se mide la memoria y recursión máxima en este proyecto:**
 
@@ -171,8 +166,8 @@ dotnet run --project .\Algoritmos.csproj -- 1000 aleatorio --run 1 --headless --
 - **Memoria privada (Private):** Se mide con `Process.PrivateMemorySize64` antes y después de cada algoritmo. El delta (`PrivateDelta`) refleja el cambio en memoria total usada por el proceso (puede solaparse en modo paralelo).
 - **Recursión máxima:** Se mide en los algoritmos recursivos (Merge y Quick) contando la profundidad máxima alcanzada durante la ejecución (`MaxRecursionDepth`). Bubble Sort es iterativo, por lo que su valor es 0.
 
-
 ---
+
 **Ejemplo cotidiano para entender la medición de memoria:**
 
 Imagina que tienes una caja donde guardas manzanas (memoria administrada) y otra caja donde guardas todo lo que usas en la cocina (memoria privada). Antes de ordenar las manzanas, cuentas cuántas hay en la caja. Después de terminar, vuelves a contar. La diferencia te dice cuántas manzanas usaste o moviste durante el proceso.
@@ -192,11 +187,11 @@ Uso del script (PowerShell):
 ```
 cd .\Algoritmos
 .\run_benchmarks.ps1 -Sizes 1000 5000 10000 -Modes aleatorio cruel -Repeats 3 -OutFile benchmarks.csv
-
+```
 Si quieres que cada ejecución del script use modo secuencial (no paralelo), llama al programa directamente con `--sequential` o modifica `run_benchmarks.ps1` para pasar `--sequential` a `dotnet run`.
 
 Ejemplo (ejecución secuencial manual):
-
+```
 dotnet run --project .\Algoritmos.csproj -- 1000 aleatorio --repeat 3 --headless --out '.\benchmarks\benchmarks.csv' --sequential
 ```
 
@@ -227,16 +222,12 @@ Move-Item .\benchmarks*.csv .\benchmarks\archive\
 ```
 Remove-Item .\benchmarks*.csv -Force
 .\run_benchmarks.ps1 -Sizes 1000 5000 10000 -Modes aleatorio cruel -Repeats 3 -OutFile benchmarks.csv
+```
 
 También hay un script auxiliar para limpiar la carpeta de archivos archivados si quieres vaciar `benchmarks/archive`:
-
 PowerShell:
 ```
-
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\clean_archive.ps1
-
-```
-
 ```
 
 Nota: `run_benchmarks.ps1` puede recibir el parámetro `-OutFile` para indicar el archivo de salida; si el archivo existe se añadirán filas. Para evitar problemas de codificación con herramientas Windows, el script crea el CSV con encabezado en UTF‑8 + BOM.
@@ -256,16 +247,6 @@ Tras experimentar con estos métodos de ordenamiento, los resultados demuestran 
 ## Licencia
 
 - Código de ejemplo sin licencia explícita. Añade la licencia que prefieras si planeas compartir o publicar.
-
----
-
-Desarrollado en C# .NET
-
-Si quieres, puedo también:
-
-- traducir el README al inglés,
-- ampliar el script para producir gráficos (CSV -> PNG),
-- o añadir más algoritmos y métricas (uso de memoria, recursión máxima).
 
 ---
 

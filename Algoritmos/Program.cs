@@ -27,8 +27,8 @@ namespace Algoritmos
 
         static void Main(string[] args)
         {
-            int CANTIDAD_NUMEROS = 100000;
-            int MAX_VALOR = 999999;
+            int CANTIDAD_NUMEROS = 10000;
+            int MAX_VALOR = 99999;
             string modo = "aleatorio";
 
             for (int i = 0; i < args.Length; i++)
