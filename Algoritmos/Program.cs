@@ -29,7 +29,7 @@ namespace Algoritmos
         {
             int CANTIDAD_NUMEROS = 10000;
             int MAX_VALOR = 99999;
-            string modo = "aleatorio";
+            string modo = "";
 
             for (int i = 0; i < args.Length; i++)
             {

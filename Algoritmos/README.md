@@ -21,8 +21,6 @@ Algoritmos/
 ├─ Algoritmos.csproj
 ├─ Program.cs
 ├─ README.md
-├─ run_benchmarks.ps1
-├─ summarize_benchmarks.ps1
 ├─ benchmarks/
 │   ├─ bench_test_par.csv
 │   ├─ bench_test_seq.csv
