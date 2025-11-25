@@ -42,6 +42,9 @@ Algoritmos/
 │       └─ SorterBase.cs
 ├─ scripts/
 │   └─ clean_archive.ps1
+│   └─ run_benchmarks.ps1
+│   └─ summarize_benchmarks(2).ps1
+│   └─ summarize_benchmarks.ps1
 ```
 
 ## Instrucciones de Uso
@@ -242,7 +245,7 @@ Tras experimentar con estos métodos de ordenamiento, los resultados demuestran 
 
 ## Contribuciones
 
-- Si quieres mejorar el README, añadir más algoritmos (HeapSort, TimSort) o variantes paralelas, abre un pull request.
+- Si quieres mejorar el README, abre un pull request.
 
 ## Licencia
 
